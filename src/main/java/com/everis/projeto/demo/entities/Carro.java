@@ -3,28 +3,38 @@ package com.everis.projeto.demo.entities;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class Carro implements Serializable{
 
 	private static final long serialVersionUID = 1L;
-
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@Column(name = "placa")
 	private String placa;
+	@Column(name = "cor")
 	private String cor;
 	
+	
+	@ManyToOne
+	@JoinColumn(name = "id_modelo")
 	private Modelo modelo;
+	
+	@ManyToOne
+	@JoinColumn(name = "id_marca")
 	private Marca marca;
 	
-	public Carro() {
-	}
-
-	public Carro(Long id, String placa, String cor, Modelo modelo, Marca marca) {
-		this.id = id;
-		this.placa = placa;
-		this.cor = cor;
-		this.modelo = modelo;
-		this.marca = marca;
-	}
-
 	public Long getId() {
 		return id;
 	}
@@ -49,51 +59,36 @@ public class Carro implements Serializable{
 		this.cor = cor;
 	}
 
-	public Modelo getModelo() {
-		return modelo;
-	}
 
 	public void setModelo(Modelo modelo) {
 		this.modelo = modelo;
-	}
-
-	public Marca getMarca() {
-		return marca;
 	}
 
 	public void setMarca(Marca marca) {
 		this.marca = marca;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		return result;
+	public Modelo getClass(Modelo modelo) {
+		return modelo;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Carro other = (Carro) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
+	public Marca getClass(Marca marca) {
+		return marca;
+	}
+
+
+	public static boolean isPresent() {
 		return true;
 	}
 
+	public Marca getMarca() {
+		return marca;
+	}
 
-	
-	
-	
-	
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+
 
 }
